@@ -1,0 +1,12 @@
+/.bak
+/.cache
+/.venv
+/.vscode
+/build
+/config.ini
+/dist
+/follower_tool.spec.bak
+/index.html
+/pyqtconfig-0.8.6.zip
+/result
+/__pycache__

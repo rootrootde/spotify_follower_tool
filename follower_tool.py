@@ -18,8 +18,6 @@ import spotipy
 from main_window import Ui_MainWindow
 from spotipy.oauth2 import SpotifyOAuth
 
-# HOST, PORT = "127.0.0.1", 8888
-
 
 class SelectPlaylistsDialog(QDialog):
     def __init__(self, parent=None):
@@ -128,8 +126,8 @@ class MainWindow(QMainWindow):
         self.ui.status_bar.showMessage(f"authenticated as: {display_name}")
 
     def on_select_playlists(self):
-        current_user_playlists = self.sp.current_user_playlists()
-        playlists = current_user_playlists["items"]
+        playlists = self.sp.current_user_playlists()
+        self.playlists = playlists["items"]
 
         dlg = SelectPlaylistsDialog(parent=self)
 
@@ -137,9 +135,8 @@ class MainWindow(QMainWindow):
             self.selected_playlists = []
             for checkbox in dlg.checkboxes:
                 if checkbox.isChecked():
-                    for playlist in playlists:
+                    for playlist in self.playlists:
                         if playlist["name"] == checkbox.text():
-                            print(f"checked: {playlist['name']} -- {checkbox.text()}")
                             self.selected_playlists.append(playlist)
 
         if self.selected_playlists:

@@ -18,8 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QButtonGroup,
     QFrame, QGridLayout, QGroupBox, QHeaderView,
     QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QTabWidget, QTableWidget, QTableWidgetItem,
-    QWidget)
+    QStatusBar, QTableWidget, QTableWidgetItem, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -59,22 +58,9 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.group_box_api, 0, 0, 1, 2)
 
-        self.tabWidget = QTabWidget(self.centralwidget)
-        self.tabWidget.setObjectName(u"tabWidget")
-        self.tab_artists = QWidget()
-        self.tab_artists.setObjectName(u"tab_artists")
-        self.gridLayout_4 = QGridLayout(self.tab_artists)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.group_box_artists = QGroupBox(self.tab_artists)
-        self.group_box_artists.setObjectName(u"group_box_artists")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(2)
-        sizePolicy2.setHeightForWidth(self.group_box_artists.sizePolicy().hasHeightForWidth())
-        self.group_box_artists.setSizePolicy(sizePolicy2)
-        self.gridLayout_3 = QGridLayout(self.group_box_artists)
+        self.gridLayout_3 = QGridLayout()
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.tbl_artists = QTableWidget(self.group_box_artists)
+        self.tbl_artists = QTableWidget(self.centralwidget)
         if (self.tbl_artists.columnCount() < 4):
             self.tbl_artists.setColumnCount(4)
         __qtablewidgetitem = QTableWidgetItem()
@@ -86,11 +72,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tbl_artists.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         self.tbl_artists.setObjectName(u"tbl_artists")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.tbl_artists.sizePolicy().hasHeightForWidth())
-        self.tbl_artists.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.tbl_artists.sizePolicy().hasHeightForWidth())
+        self.tbl_artists.setSizePolicy(sizePolicy2)
         self.tbl_artists.setMinimumSize(QSize(450, 0))
         font = QFont()
         font.setPointSize(12)
@@ -108,10 +94,11 @@ class Ui_MainWindow(object):
         self.tbl_artists.horizontalHeader().setMinimumSectionSize(0)
         self.tbl_artists.horizontalHeader().setDefaultSectionSize(100)
         self.tbl_artists.horizontalHeader().setStretchLastSection(True)
+        self.tbl_artists.verticalHeader().setVisible(False)
 
         self.gridLayout_3.addWidget(self.tbl_artists, 0, 0, 1, 2)
 
-        self.btn_select_playlists = QPushButton(self.group_box_artists)
+        self.btn_select_playlists = QPushButton(self.centralwidget)
         self.btn_group = QButtonGroup(MainWindow)
         self.btn_group.setObjectName(u"btn_group")
         self.btn_group.addButton(self.btn_select_playlists)
@@ -119,33 +106,26 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.btn_select_playlists, 1, 0, 1, 1)
 
-        self.btn_follow_all = QPushButton(self.group_box_artists)
-        self.btn_group.addButton(self.btn_follow_all)
-        self.btn_follow_all.setObjectName(u"btn_follow_all")
-
-        self.gridLayout_3.addWidget(self.btn_follow_all, 1, 1, 1, 1)
-
-        self.btn_clear_list = QPushButton(self.group_box_artists)
-        self.btn_group.addButton(self.btn_clear_list)
-        self.btn_clear_list.setObjectName(u"btn_clear_list")
-
-        self.gridLayout_3.addWidget(self.btn_clear_list, 2, 0, 1, 1)
-
-        self.btn_unfollow_all = QPushButton(self.group_box_artists)
+        self.btn_unfollow_all = QPushButton(self.centralwidget)
         self.btn_group.addButton(self.btn_unfollow_all)
         self.btn_unfollow_all.setObjectName(u"btn_unfollow_all")
 
         self.gridLayout_3.addWidget(self.btn_unfollow_all, 2, 1, 1, 1)
 
+        self.btn_clear_list = QPushButton(self.centralwidget)
+        self.btn_group.addButton(self.btn_clear_list)
+        self.btn_clear_list.setObjectName(u"btn_clear_list")
 
-        self.gridLayout_4.addWidget(self.group_box_artists, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.btn_clear_list, 2, 0, 1, 1)
 
-        self.tabWidget.addTab(self.tab_artists, "")
-        self.tab_songs = QWidget()
-        self.tab_songs.setObjectName(u"tab_songs")
-        self.tabWidget.addTab(self.tab_songs, "")
+        self.btn_follow_all = QPushButton(self.centralwidget)
+        self.btn_group.addButton(self.btn_follow_all)
+        self.btn_follow_all.setObjectName(u"btn_follow_all")
 
-        self.gridLayout_2.addWidget(self.tabWidget, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.btn_follow_all, 1, 1, 1, 1)
+
+
+        self.gridLayout_2.addLayout(self.gridLayout_3, 1, 0, 1, 2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -164,9 +144,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
-
-
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -175,7 +152,6 @@ class Ui_MainWindow(object):
         self.group_box_api.setTitle(QCoreApplication.translate("MainWindow", u"API Connection", None))
         self.btn_settings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.btn_auth.setText(QCoreApplication.translate("MainWindow", u"Login as...", None))
-        self.group_box_artists.setTitle(QCoreApplication.translate("MainWindow", u"Artists", None))
         ___qtablewidgetitem = self.tbl_artists.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Following", None));
         ___qtablewidgetitem1 = self.tbl_artists.horizontalHeaderItem(1)
@@ -185,10 +161,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3 = self.tbl_artists.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"ID", None));
         self.btn_select_playlists.setText(QCoreApplication.translate("MainWindow", u"Select Playlists", None))
-        self.btn_follow_all.setText(QCoreApplication.translate("MainWindow", u"Follow All", None))
-        self.btn_clear_list.setText(QCoreApplication.translate("MainWindow", u"Clear List", None))
         self.btn_unfollow_all.setText(QCoreApplication.translate("MainWindow", u"Unfollow All", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_artists), QCoreApplication.translate("MainWindow", u"Follow Artists", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_songs), QCoreApplication.translate("MainWindow", u"Songs", None))
+        self.btn_clear_list.setText(QCoreApplication.translate("MainWindow", u"Clear List", None))
+        self.btn_follow_all.setText(QCoreApplication.translate("MainWindow", u"Follow All", None))
     # retranslateUi
 

@@ -97,7 +97,6 @@ class MainWindow(QMainWindow):
     def save_config(self):
         self.config["DEFAULT"]["SPOTIFY_CLIENT_ID"] = self.client_id
         self.config["DEFAULT"]["SPOTIFY_CLIENT_SECRET"] = self.client_secret
-        self.config["DEFAULT"]["SPOTIFY_REDIRECT_URI"] = self.redirect_uri
 
         with open("config.ini", "w") as configfile:
             self.config.write(configfile)
@@ -110,7 +109,12 @@ class MainWindow(QMainWindow):
 
     def on_settings(self):
         settings_dlg = SettingsDialog(self)
-        settings_dlg.show()
+        if settings_dlg.exec():
+            self.client_id = settings_dlg.le_client_id.text()
+            self.client_secret = settings_dlg.le_client_secret.text()
+            self.save_config()
+        else:
+            pass
 
     def on_auth(self):
         scope = "user-library-read,user-follow-modify,user-follow-read,playlist-read-private,playlist-read-collaborative"
@@ -228,31 +232,25 @@ class MainWindow(QMainWindow):
 
     def populate_table(self, rows):
         self.ui.tbl_artists.setRowCount(len(rows))
-
         for idx, (follow_status, artist_name, artist_url, artist_id) in enumerate(rows):
             toggle = AnimatedToggle(
                 checked_color="#1DB954", pulse_checked_color=QColorConstants.LightGray
             )
+            toggle.setChecked(follow_status)
             toggle.setFixedWidth(60)
 
-            if follow_status:
-                toggle.setCheckState(Qt.CheckState.Checked)
-            else:
-                toggle.setCheckState(Qt.CheckState.Unchecked)
-
             artist_url_button = QPushButton(parent=self.ui.tbl_artists)
-            artist_url_button.setIcon(QIcon("open.png"))
+            open_icon_file = Path(__file__).resolve().with_name("open.png")
+            artist_url_button.setIcon(QIcon(str(open_icon_file)))
             artist_url_button.clicked.connect(
                 lambda *args, artist_url=artist_url: self.on_open_url(artist_url)
             )
-            artist_url_button.setFixedWidth(30)
 
-            artist_name_widget = QTableWidgetItem(artist_name)
-            # artist_name_widget.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            artist_url_button.setFixedWidth(30)
 
             self.ui.tbl_artists.setCellWidget(idx, 0, toggle)
             self.ui.tbl_artists.setCellWidget(idx, 1, artist_url_button)
-            self.ui.tbl_artists.setItem(idx, 2, artist_name_widget)
+            self.ui.tbl_artists.setItem(idx, 2, QTableWidgetItem(artist_name))
             self.ui.tbl_artists.setItem(idx, 3, QTableWidgetItem(artist_id))
 
             toggle.clicked.connect(
@@ -298,5 +296,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = MainWindow()
     win.show()
-
     sys.exit(app.exec())

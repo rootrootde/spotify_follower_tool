@@ -8,7 +8,7 @@ a = Analysis(
     ['follower_tool.py'],
     pathex=[],
     binaries=[],
-    datas=[('config.ini', '.')],   # tuple is (source_folder, destination_folder)
+    datas=[('config.ini', '.'), ('open.png','.')],   # tuple is (source_folder, destination_folder)
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,7 +35,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
